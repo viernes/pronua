@@ -393,7 +393,7 @@ class MonitoringControl(models.Model):
     rancidity = fields.Float(string="Rancidez")
     agl = fields.Float(string="AGL")
     plague = fields.Float(string="Plaga")
-    venta_mostrador = fields.Boolean(string='Venta Mostrador', default=False)
+    venta_mostrador = fields.Boolean(string='Venta Mostrador', default=True)
 
     cantidad_real = fields.Char(
         string='Pesada de origen',

@@ -294,8 +294,8 @@
                           <field name="num_identificacion"  attrs="{'required':[('tipo_reg','=','visitante')]}"/>
                         </group>
                         <group>
-                          <field name="procedencia"  attrs="{'required':[('tipo_reg','=','visitante')]}"/>
-                          <field name="visita"   attrs="{'required':[('tipo_reg','=','visitante')]}"/>
+                          <field name="procedencia"  attrs="{'required':[('venta_mostrador','=',False)]}"/>
+                          <field name="visita"   attrs="{'required':[('venta_mostrador','=',False)]}"/>
                         </group>
                         </group>
                       </page>
