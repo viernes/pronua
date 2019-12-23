@@ -300,7 +300,7 @@ class MonitoringControl(models.Model):
         else:
             self.name = 'DOC'+str(self.id)
 
-    state = fields.Selection([('borrador', 'Borrador'),('dentro', 'Dentro'),('salida', 'Salida')],default='borrador', string="Estado")
+    state = fields.Selection([('borrador', 'Borrador'),('dentro', 'Dentro'),('salida', 'Salida')],default='borrador',track_visibility='onchange', string="Estado")
     name = fields.Char(string="N° de documento", compute=_document_id)
     tipo_reg = fields.Selection((('entrada','Entrada'),('salida','Salida'),('visitante','Visitante'),('otros_sa','Otros salida'),('otros_en','Otros Entrada')),string="Tipo de registro", required=True)
     hora_llegada = fields.Datetime(string="Fecha y hora de llegada", default=fields.Datetime.now, required=True)
@@ -332,6 +332,8 @@ class MonitoringControl(models.Model):
          'hr.employee',
          string='Quien Aprobo'
      )
+    product_uom = fields.Many2one("uom.uom", string="Unidad de medida",  default=lambda self: self.env['uom.uom'].search([('name', '=', 'kg')]))
+   
     fecha_aprobacion = fields.Date(
           string='Fecha'
       ) 
@@ -391,15 +393,19 @@ class MonitoringControl(models.Model):
     rancidity = fields.Float(string="Rancidez")
     agl = fields.Float(string="AGL")
     plague = fields.Float(string="Plaga")
-
+    venta_mostrador = fields.Boolean(string='Venta Mostrador', default=False)
 
     cantidad_real = fields.Char(
         string='Pesada de origen',
     )
-    tipo_docuemto = fields.Selection((('factura','Factura'),('remision','Remision'),('ficha_de_pesaje','Ficha de pesaje')), string="Tipo de Documento")
+    tipo_docuemto = fields.Selection((('factura','Factura'),('remision','Remision'),('ficha_de_pesaje','Ficha de pesaje'),('nota_salida','Nota de Salida')), string="Tipo de Documento")
     numero_de_documento = fields.Char(
         string='Número de documento',
     )
+    tipo_doc_salida = fields.Char(
+        string='Tipo de Documento',default="Factura"
+    )
+
 
     # @api.model
     # def create(self, values):
@@ -505,6 +511,10 @@ class MonitoringControl(models.Model):
     def action_salida(self):
         self.ensure_one()
         if self.state == 'dentro':
+            if self.tipo_reg == 'visitante':
+                self.tipo_docuemto = 'factura'
+                self.numero_de_documento = '00'
+                self.cantidad_real = '0.00'
             self.state = 'salida'
             
     #cambios l        

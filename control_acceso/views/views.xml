@@ -237,11 +237,11 @@
           <form>
               <header>
                <!--  <button string='Aceptar' name="action_acept_control" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','ingreso'),('tipo_reg','=','visitante')]}" /> -->
-                <button string='Ingreso' name="action_ingreso" type="object" class="oe_highlight" attrs="{'invisible':['|',('state','=','dentro'),'|',('state','=','salida'),'|',('tipo_reg', '=','visitante')]}"/>
-                <button string='Salida' name="action_salida" type="object" class="oe_highlight"  attrs="{'invisible':['|',('state','=','borrador'),'|',('state','=','salida'),'|',('tipo_reg', '=','visitante')]}"/>
+                <button string='Ingreso' name="action_ingreso" type="object" class="oe_highlight" attrs="{'invisible':['|',('state','=','dentro'),'|',('state','=','salida')]}"/>
+                <button string='Salida' name="action_salida" type="object" class="oe_highlight"  attrs="{'invisible':['|',('state','=','borrador'),'|',('state','=','salida')]}"/>
                 <!-- <button string='Listo para Salir' name="action_salida_control" type="object" class="oe_highlight" attrs="{'invisible':['|',('state','=','ingreso'),'|',('state','=','salir'),'|',('state','=','egreso'),'|',('state','=','rechazado')]}" />
                   <button string='Egreso' name="action_egreso_control" type="object" class="oe_highlight" attrs="{'invisible':['|',('state','=','ingreso'),'|',('state','=','egreso'),'|',('state','=','aprobado'),'|',('state','=','rechazado')]}" />-->
-                <field name="state" widget="statusbar"  attrs="{'invisible':[('tipo_reg', '=','visitante')]}"/>
+                <field name="state" widget="statusbar"/>
               </header>
               <sheet string="Control de acceso">
                 <field name="image" widget="image" class="oe_avatar" />
@@ -271,13 +271,15 @@
                     
                   <group>
                     <field name="hora_llegada"/>
-                    <field name="cantidad_real" attrs="{'invisible':[('tipo_reg','=','visitante')], 'required':['|',('tipo_reg','=','salida'),'|',('tipo_reg','=','entrada')]}"/>
-                    <field name="tipo_docuemto" attrs="{'invisible':[('tipo_reg','=','visitante')], 'required':['|',('tipo_reg','=','salida'),'|',('tipo_reg','=','entrada')]}"/>
-                    <field name="numero_de_documento" attrs="{'invisible':[('tipo_reg','=','visitante')], 'required':['|',('tipo_reg','=','salida'),'|',('tipo_reg','=','entrada')]}"/>
+                    <field name="cantidad_real" attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
+                    <field name="product_uom"  attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
+                    <field name="tipo_docuemto" attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
+                    <field name="tipo_doc_salida" attrs="{'invisible':['|',('tipo_reg','!=','salida'),('state','!=','salida')]}"/>
+                    <field name="numero_de_documento" attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
                     <field name="hora_ingreso" invisible="1"/>
                     <field name="hora_salida"  attrs="{'invisible':[('state','!=','salida')]}"/>
                     <field name="check_red" invisible="1"/>
-                    
+                    <field name="venta_mostrador" attrs="{'invisible':[('tipo_reg','!=','visitante')]}"/>
                    <!-- <field name="motivo_rechazo" attrs="{'invisible':[('state','!=','rechazado')]}" /> -->
                   </group>
                 </group>
@@ -293,7 +295,7 @@
                         </group>
                         <group>
                           <field name="procedencia"  attrs="{'required':[('tipo_reg','=','visitante')]}"/>
-                          <field name="visita"   attrs="{'required':[('tipo_reg','=','visitante')]}" />
+                          <field name="visita"   attrs="{'required':[('tipo_reg','=','visitante')]}"/>
                         </group>
                         </group>
                       </page>
@@ -309,17 +311,8 @@
                             </field>
                           </sheet>
                         </page>
-                       <page string="Productos" attrs="{'invisible':['|',('tipo_reg','=','visitante'),'|',('tipo_reg', '=','entrada'),'|',('tipo_reg','=','salida')]}">
-                          <sheet>
-                            <field name="tabla_otros">
-                              <tree string="Productos" editable="bottom">
-                                <field name="producto_otros"/>
-                                <field name="cantidad"/>
-                              </tree>
-                            </field>
-                          </sheet>
-                        </page>
-                      <page name="transporte" string="Datos del transporte" attrs="{'invisible':['|',('tipo_reg','=','visitante'),'|',('tipo_reg', '=','otros_en'),'|',('tipo_reg','=','otros_sa')]}">
+                       
+                      <page name="transporte" string="Datos del transporte" attrs="{'invisible':[('tipo_reg','=','visitante')]}">
                         <group name="datos_transporte">
                           <group>
                           <field name="tipo_trans" attrs="{'required':['|',('tipo_reg','=','entrada'),('tipo_reg', '=','salida')]}"/>
@@ -333,7 +326,7 @@
                         </group>
                       </page>
                       
-                      <page name="chofer" string="Datos del chofer" attrs="{'invisible':['|',('tipo_reg','=','visitante'),'|',('tipo_reg', '=','otros_en'),'|',('tipo_reg','=','otros_sa')]}">
+                      <page name="chofer" string="Datos del chofer" attrs="{'invisible':[('tipo_reg','=','visitante')]}">
                         <group name="datos_chofer">
                           <group>
                             <field name="nombre_chofer" attrs="{'required':['|',('tipo_reg','=','entrada'),('tipo_reg', '=','salida')]}"/>
@@ -394,8 +387,10 @@
                       </page>
                   </notebook>
               </sheet>
-              <div class="oe_chatter">
-              </div>
+                 <div class="oe_chatter">
+                   <field name="message_follower_ids" widget="mail_followers"/>
+                   <field name="message_ids" widget="mail_thread"/>
+                </div>
           </form>
       </field>
     </record>
@@ -429,9 +424,7 @@
       
 
 
-    <menuitem id="all_picking" name="Recepciones" parent="monitoring_control_root" sequence="5" action="stock.action_picking_tree_all" groups="stock.group_stock_manager,stock.group_stock_user"/>
-
-    
+   
 
     <record    id="view_form_addition_products" model="ir.ui.view">
       <field name="name">Aditamentos</field>
