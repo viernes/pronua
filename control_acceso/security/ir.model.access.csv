@@ -9,11 +9,16 @@ access_purchase_order_programing,purchase.order.programing,model_purchase_order_
 access_monitoring_motivos,monitoring.motivos,model_monitoring_motivos,base.group_user,1,0,0,0
 access_monitoring_motivos,monitoring.motivos,model_monitoring_motivos,base.group_erp_manager,1,1,1,1
 
+access_monitoring_visitante,monitoring.visitante,model_monitoring_visitante,base.group_user,1,0,0,0
+access_monitoring_visitante,monitoring.visitante,model_monitoring_visitante,base.group_erp_manager,1,1,1,1
+
 access_monitoring_products,monitoring.products,model_monitoring_products,base.group_user,1,0,0,0
 access_monitoring_products,monitoring.products,model_monitoring_products,base.group_erp_manager,1,1,1,1
 
 access_sales_route,sales.route,model_sales_route,base.group_user,1,0,0,0
 
+access_product_addition_line,product.addition.line,model_product_addition_line,base.group_user,1,0,0,0
+access_product_addition_line,product.addition.line,model_product_addition_line,base.group_erp_manager,1,1,1,1
 
 access_tabla_entrada,tabla.entrada,model_tabla_entrada,base.group_user,1,0,0,0
 access_tabla_entrada,tabla.entrada,model_tabla_entrada,base.group_erp_manager,1,1,1,1

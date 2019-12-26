@@ -288,8 +288,8 @@
                         <group name="datos_visitante">
                           <group>
 
-                          <field name="nombre" attrs="{'required':[('tipo_reg','=','visitante')]}" />
-
+                          <field name="nombre" attrs="{'invisible':[('tipo_reg','=','visitante')]}" />
+                          <field name="visitante_id" attrs="{'invisible':[('tipo_reg','!=','visitante')],'required':[('tipo_reg','=','visitante')]}"/>
                           <field name="identificacion"  attrs="{'required':[('tipo_reg','=','visitante')]}" />
                           <field name="num_identificacion"  attrs="{'required':[('tipo_reg','=','visitante')]}"/>
                         </group>

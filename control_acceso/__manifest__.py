@@ -3,8 +3,7 @@
     'name': "control_acceso",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        control de acceso""",
 
     'description': """
         Long description of module's purpose
@@ -28,6 +27,7 @@
         'views/views.xml',
         'views/templates.xml',
         #'reports/reports.xml',
+        'reports/etiqueta.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

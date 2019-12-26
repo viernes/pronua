@@ -287,7 +287,15 @@ class MonitoringMotivos(models.Model):
     _name = "monitoring.motivos"
 
     name = fields.Char(string="Motivo")
-        
+
+class MonitoringVisitante(models.Model):
+    _name = "monitoring.visitante"
+
+    name = fields.Char(string="Nombre")
+    image_visitante = fields.Binary(
+       
+        help="Este campo contiene la imagen utilizada como foto para el empleado, limitada a 1024x1024px.")
+   
 
 class MonitoringControl(models.Model):
     _name="monitoring.control"
@@ -299,6 +307,7 @@ class MonitoringControl(models.Model):
             self.name = 'DOC0'+str(self.id)
         else:
             self.name = 'DOC'+str(self.id)
+    visitante_id = fields.Many2one('monitoring.visitante',string="Nombre")
 
     state = fields.Selection([('borrador', 'Borrador'),('dentro', 'Dentro'),('salida', 'Salida')],default='borrador',track_visibility='onchange', string="Estado")
     name = fields.Char(string="N° de documento", compute=_document_id)
