@@ -271,6 +271,10 @@
                     
                   <group>
                     <field name="hora_llegada"/>
+                    <field name="is_transfer"/>
+                    <field name="origin_weight"/>
+                    <field name="origin_document"/>
+                    <field name="comments"/>
                     <field name="cantidad_real" attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
                     <field name="product_uom"  attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
                     <field name="tipo_docuemto" attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
@@ -296,6 +300,7 @@
                         <group>
                           <field name="procedencia"  attrs="{'required':[('venta_mostrador','=',False)]}"/>
                           <field name="visita"   attrs="{'required':[('venta_mostrador','=',False)]}"/>
+                          <field name="notes" attrs="{'required':[('venta_mostrador','=',False)]}"/>
                         </group>
                         </group>
                       </page>
@@ -409,6 +414,22 @@
             </tree>
         </field>
     </record>
+
+    <record id="view_search_monitoring_control" model="ir.ui.view">
+        <field name="name">Accesos Search</field>
+        <field name="model">monitoring.control</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="campo_proveedor"/>
+                <field name="visitante_id"/>
+                <filter name="draft" string="Borrador" domain="[('state','=', 'borrador')]"/>
+                <filter name="inside" string="Dentro" domain="[('state','=', 'dentro')]"/>
+                <filter name="outside" string="Salida" domain="[('state','=', 'salida')]"/>
+            </search>
+        </field>
+    </record>
+
     <act_window
         id="control_acceso_action_window"
         name="Control de Acceso"

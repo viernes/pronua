@@ -315,11 +315,18 @@ class MonitoringControl(models.Model):
     hora_llegada = fields.Datetime(string="Fecha y hora de llegada", default=fields.Datetime.now, required=True)
     hora_ingreso = fields.Datetime(string="Fecha y hora de ingreso", default=fields.Datetime.now, required=True)
     hora_salida = fields.Datetime(string="Fecha y hora de salida", default=fields.Datetime.now)
+    is_transfer = fields.Boolean(string="¿Es traslado?")
+    comments = fields.Text(string="Comentarios")
     nombre_chofer = fields.Char(string="Nombre del chofer")
     tipo_trans = fields.Selection((('1ton','1 Tonelada'),('3ton','3 Toneladas'),('5ton','5 Toneladas'),('10ton','10 Toneladas'),('torton','Torton'),('48pi','48 Pies'),('53pi','53 Pies'),('full','Full'),('c20','Contenedor 20'),('c40','Contenedor 40'),('c48','Contenedor 48'),('c53','Contenedor 53')),string="Tipo de transporte")
     placas_tractor = fields.Char(string="Placas del tractor")
     placas_caja = fields.Char(string="Placas de la caja")
     placas_caja_dos = fields.Char(string="Placas de la caja 2")
+    notes = fields.Text(string="Nota")
+    origin_weight = fields.Char(string="Peso origen")
+    origin_document = fields.Char(string="Documento origen")
+
+
 
     #camibios l
     cliente_c  = fields.Boolean(string='Cliente')
