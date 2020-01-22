@@ -271,10 +271,10 @@
                     
                   <group>
                     <field name="hora_llegada"/>
-                    <field name="is_transfer"/>
-                    <field name="origin_weight"/>
-                    <field name="origin_document"/>
-                    <field name="comments"/>
+                    <field name="origin_weight" attrs="{'invisible':[('tipo_reg','!=','entrada')]}"/>
+                    <field name="origin_document" attrs="{'invisible':[('tipo_reg','!=','entrada')]}"/>
+                    <field name="is_transfer" attrs="{'invisible':[('tipo_reg','!=','otros_en')]}"/>
+                    <field name="comments" attrs="{'invisible':[('tipo_reg','!=','otros_en')]}"/>
                     <field name="cantidad_real" attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
                     <field name="product_uom"  attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
                     <field name="tipo_docuemto" attrs="{'invisible':['|',('tipo_reg','=','visitante'),('state','!=','salida')], 'required':[('state','=','salida')]}"/>
@@ -300,7 +300,7 @@
                         <group>
                           <field name="procedencia"  attrs="{'required':[('venta_mostrador','=',False)]}"/>
                           <field name="visita"   attrs="{'required':[('venta_mostrador','=',False)]}"/>
-                          <field name="notes" attrs="{'required':[('venta_mostrador','=',False)]}"/>
+                          <field name="notes" attrs="{'invisible':[('tipo_reg','!=','visitante')]}"/>
                         </group>
                         </group>
                       </page>
