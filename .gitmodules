@@ -1,0 +1,3 @@
+[submodule "xmarts_calidad"]
+	path = xmarts_calidad
+	url = git@gitlab.com:xmarts/xmarts_calidad.git
