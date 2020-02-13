@@ -1,3 +1,7 @@
 [submodule "xmarts_calidad"]
 	path = xmarts_calidad
 	url = git@gitlab.com:xmarts/xmarts_calidad.git
+[submodule "triple_aprobacion_calidad"]
+	path = triple_aprobacion_calidad
+	url = git@gitlab.com:xmarts/xmarts-apps/triple_aprobacion_calidad.git
+	branch = 12.0
